@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="backend/NLayers.Api/NLayers.Api.csproj" />
+  </Folder>
+  <Folder Name="/layers/">
+    <Project Path="layers/NLayers.BusinessLogic/NLayers.BusinessLogic.csproj" />
+    <Project Path="layers/NLayers.DataAccess/NLayers.DataAccess.csproj" />
+    <Project Path="layers/NLayers.Entities/NLayers.Entities.csproj" />
+    <Project Path="layers/NLayers.Presentation/NLayers.Presentation.csproj" />
+  </Folder>
+</Solution>

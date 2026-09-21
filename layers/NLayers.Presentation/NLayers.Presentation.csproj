@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NLayers.BusinessLogic\NLayers.BusinessLogic.csproj" />
+    <ProjectReference Include="..\NLayers.Entities\NLayers.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

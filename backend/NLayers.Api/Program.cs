@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using NLayers.DataAccess;
 using NLayers.DataAccess.Stores;
 using NLayers.BusinessLogic.Managers;
 
@@ -10,8 +12,12 @@ builder.Services.AddControllers()
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Inyección de dependencias (por ahora sin interfaces)
-builder.Services.AddSingleton<CategoryStore>();
+// DbContext con PostgreSQL
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Inyección de dependencias
+builder.Services.AddScoped<CategoryStore>();
 builder.Services.AddScoped<CategoryManager>();
 
 var app = builder.Build();

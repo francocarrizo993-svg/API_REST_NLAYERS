@@ -2,6 +2,9 @@
   <Folder Name="/backend/">
     <Project Path="backend/NLayers.Api/NLayers.Api.csproj" />
   </Folder>
+  <Folder Name="/core/">
+    <Project Path="core/NLayers.DataAccess.Stores.Sql/NLayers.DataAccess.Stores.Sql.csproj" />
+  </Folder>
   <Folder Name="/layers/">
     <Project Path="layers/NLayers.BusinessLogic/NLayers.BusinessLogic.csproj" />
     <Project Path="layers/NLayers.DataAccess/NLayers.DataAccess.csproj" />

@@ -1,32 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using NLayers.DataAccess.Stores.Sql;
 using NLayers.Entities.Models;
 
 namespace NLayers.DataAccess.Stores;
 
-public class CategoryStore
+public class CategoryStore : BaseSqlStore<Category>
 {
-    private readonly AppDbContext _context;
-
-    public CategoryStore(AppDbContext context)
+    public CategoryStore(AppDbContext context) : base(context)
     {
-        _context = context;
-    }
-
-    public List<Category> GetAll()
-    {
-        return _context.Categories.ToList();
-    }
-
-    public Category? GetById(int id)
-    {
-        return _context.Categories.FirstOrDefault(category => category.Id == id);
-    }
-
-    public Category Add(Category category)
-    {
-        _context.Categories.Add(category);
-        _context.SaveChanges();
-
-        return category;
     }
 }

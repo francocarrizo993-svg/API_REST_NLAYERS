@@ -8,12 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\core\NLayers.DataAccess.Stores.Sql\NLayers.DataAccess.Stores.Sql.csproj" />
-    <ProjectReference Include="..\NLayers.Entities\NLayers.Entities.csproj" />
+    <ProjectReference Include="..\..\layers\NLayers.Entities\NLayers.Entities.csproj" />
   </ItemGroup>
 
 </Project>

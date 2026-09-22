@@ -10,5 +10,9 @@
     <ProjectReference Include="..\NLayers.BusinessLogic\NLayers.BusinessLogic.csproj" />
     <ProjectReference Include="..\NLayers.Entities\NLayers.Entities.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+</ItemGroup>
 
 </Project>

@@ -40,3 +40,81 @@ NLayers.sln
     ├── NLayers.DataAccess/
     └── NLayers.Entities/
 \`\`\`
+
+
+# Avance individual — Mauricio
+
+## Rama de trabajo
+
+`feature/category-mauricio`
+
+Todo el desarrollo se realizó sobre una rama propia, sin trabajar directamente sobre `main`.
+
+## Funcionalidad implementada: Category
+
+### Entities
+
+Se creó:
+
+`NLayers.Entities/Models/Category.cs`
+
+Propiedades principales:
+
+- `Id`
+- `Name`
+- `Description`
+
+### DataAccess
+
+Se creó:
+
+`NLayers.DataAccess/Stores/CategoryStore.cs`
+
+Métodos implementados:
+
+- `GetAll()`
+- `GetById(int id)`
+- `Add(Category category)`
+
+Actualmente el almacenamiento se realiza en memoria.
+
+### BusinessLogic
+
+Se creó:
+
+`NLayers.BusinessLogic/Managers/CategoryManager.cs`
+
+Responsabilidades:
+
+- Obtener categorías.
+- Buscar una categoría por ID.
+- Crear categorías.
+- Validar que el nombre no esté vacío.
+
+### Presentation
+
+Se crearon:
+
+- `CreateCategoryInput.cs`
+- `CategoryOutput.cs`
+- `CategoryController.cs`
+
+Endpoints implementados:
+
+- `GET /api/categories`
+- `GET /api/categories/{id}`
+- `POST /api/categories`
+
+## Configuración adicional
+
+En `NLayers.Presentation.csproj` se agregó:
+
+```xml
+<FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+Estado actual
+Entities ✅
+DataAccess ✅
+BusinessLogic ✅
+Presentation ✅
+Compilación correcta ✅

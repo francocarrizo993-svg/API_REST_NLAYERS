@@ -20,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<CategoryStore>();
 builder.Services.AddScoped<CategoryManager>();
 
+builder.Services.AddScoped<ProductStore>();
+builder.Services.AddScoped<ProductManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

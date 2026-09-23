@@ -27,6 +27,30 @@ public abstract class BaseSqlStore<TEntity> where TEntity : class
     {
         DbSet.Add(entity);
         Context.SaveChanges();
+
         return entity;
+    }
+
+    public virtual TEntity Update(TEntity entity)
+    {
+        DbSet.Update(entity);
+        Context.SaveChanges();
+
+        return entity;
+    }
+
+    public virtual bool Delete(int id)
+    {
+        var entity = DbSet.Find(id);
+
+        if (entity == null)
+        {
+            return false;
+        }
+
+        DbSet.Remove(entity);
+        Context.SaveChanges();
+
+        return true;
     }
 }

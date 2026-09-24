@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using NLayers.DataAccess;
+using NLayers.DataAccess.Interfaces;
 using NLayers.DataAccess.Stores;
+using NLayers.BusinessLogic.Interfaces;
 using NLayers.BusinessLogic.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Inyección de dependencias
-builder.Services.AddScoped<CategoryStore>();
-builder.Services.AddScoped<CategoryManager>();
+builder.Services.AddScoped<ICategoryStore, CategoryStore>();
+builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 
-builder.Services.AddScoped<ProductStore>();
-builder.Services.AddScoped<ProductManager>();
+builder.Services.AddScoped<IProductStore, ProductStore>();
+builder.Services.AddScoped<IProductManager, ProductManager>();
 
 var app = builder.Build();
 

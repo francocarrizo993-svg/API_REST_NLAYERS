@@ -13,35 +13,35 @@ public abstract class BaseSqlStore<TEntity> where TEntity : class
         DbSet = context.Set<TEntity>();
     }
 
-    public virtual List<TEntity> GetAll()
+    public virtual async Task<List<TEntity>> GetAllAsync()
     {
-        return DbSet.ToList();
+        return await DbSet.ToListAsync();
     }
 
-    public virtual TEntity? GetById(int id)
+    public virtual async Task<TEntity?> GetByIdAsync(int id)
     {
-        return DbSet.Find(id);
+        return await DbSet.FindAsync(id);
     }
 
-    public virtual TEntity Add(TEntity entity)
+    public virtual async Task<TEntity> AddAsync(TEntity entity)
     {
         DbSet.Add(entity);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
 
         return entity;
     }
 
-    public virtual TEntity Update(TEntity entity)
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
     {
         DbSet.Update(entity);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
 
         return entity;
     }
 
-    public virtual bool Delete(int id)
+    public virtual async Task<bool> DeleteAsync(int id)
     {
-        var entity = DbSet.Find(id);
+        var entity = await DbSet.FindAsync(id);
 
         if (entity == null)
         {
@@ -49,7 +49,7 @@ public abstract class BaseSqlStore<TEntity> where TEntity : class
         }
 
         DbSet.Remove(entity);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
 
         return true;
     }

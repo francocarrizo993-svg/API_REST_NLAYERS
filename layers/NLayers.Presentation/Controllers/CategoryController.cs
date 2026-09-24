@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using NLayers.BusinessLogic.Managers;
+using NLayers.BusinessLogic.Interfaces;
 using NLayers.Entities.Models;
 using NLayers.Presentation.Models.Inputs;
 using NLayers.Presentation.Models.Outputs;
@@ -10,12 +10,13 @@ namespace NLayers.Presentation.Controllers;
 [Route("api/categories")]
 public class CategoryController : ControllerBase
 {
-    private readonly CategoryManager _categoryManager;
+    private readonly ICategoryManager _categoryManager;
 
-    public CategoryController(CategoryManager categoryManager)
+    public CategoryController(ICategoryManager categoryManager)
     {
         _categoryManager = categoryManager;
     }
+
 
     [HttpGet]
     public IActionResult GetAll()
@@ -55,25 +56,76 @@ public class CategoryController : ControllerBase
     [HttpPost]
     public IActionResult Create(CreateCategoryInput input)
     {
-        var category = new Category
+        try
         {
-            Name = input.Name,
-            Description = input.Description
-        };
+            var category = new Category
+            {
+                Name = input.Name,
+                Description = input.Description
+            };
 
-        var createdCategory = _categoryManager.Add(category);
+            var createdCategory = _categoryManager.Add(category);
 
-        var response = new CategoryOutput
+            var response = new CategoryOutput
+            {
+                Id = createdCategory.Id,
+                Name = createdCategory.Name,
+                Description = createdCategory.Description
+            };
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = response.Id },
+                response
+            );
+        }
+        catch (ArgumentException ex)
         {
-            Id = createdCategory.Id,
-            Name = createdCategory.Name,
-            Description = createdCategory.Description
-        };
+            return BadRequest(new { message = ex.Message });
+        }
+    }
 
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = response.Id },
-            response
-        );
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, UpdateCategoryInput input)
+    {
+        try
+        {
+            var updatedCategory = _categoryManager.Update(
+                id,
+                input.Name,
+                input.Description
+            );
+
+            if (updatedCategory == null)
+            {
+                return NotFound();
+            }
+
+            var response = new CategoryOutput
+            {
+                Id = updatedCategory.Id,
+                Name = updatedCategory.Name,
+                Description = updatedCategory.Description
+            };
+
+            return Ok(response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var deleted = _categoryManager.Delete(id);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
     }
 }

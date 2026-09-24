@@ -1,13 +1,14 @@
-using NLayers.DataAccess.Stores;
+using NLayers.BusinessLogic.Interfaces;
+using NLayers.DataAccess.Interfaces;
 using NLayers.Entities.Models;
 
 namespace NLayers.BusinessLogic.Managers;
 
-public class CategoryManager
+public class CategoryManager : ICategoryManager
 {
-    private readonly CategoryStore _categoryStore;
+    private readonly ICategoryStore _categoryStore;
 
-    public CategoryManager(CategoryStore categoryStore)
+    public CategoryManager(ICategoryStore categoryStore)
     {
         _categoryStore = categoryStore;
     }
@@ -32,7 +33,11 @@ public class CategoryManager
         return _categoryStore.Add(category);
     }
 
-    public Category? Update(int id, string name, string? description)
+    public Category? Update(
+        int id,
+        string name,
+        string? description
+    )
     {
         var category = _categoryStore.GetById(id);
 

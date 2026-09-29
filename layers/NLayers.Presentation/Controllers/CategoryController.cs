@@ -17,11 +17,10 @@ public class CategoryController : ControllerBase
         _categoryManager = categoryManager;
     }
 
-
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var categories = _categoryManager.GetAll();
+        var categories = await _categoryManager.GetAllAsync();
 
         var response = categories.Select(category => new CategoryOutput
         {
@@ -34,9 +33,9 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var category = _categoryManager.GetById(id);
+        var category = await _categoryManager.GetByIdAsync(id);
 
         if (category == null)
         {
@@ -54,7 +53,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateCategoryInput input)
+    public async Task<IActionResult> Create(CreateCategoryInput input)
     {
         try
         {
@@ -64,7 +63,8 @@ public class CategoryController : ControllerBase
                 Description = input.Description
             };
 
-            var createdCategory = _categoryManager.Add(category);
+            var createdCategory =
+                await _categoryManager.AddAsync(category);
 
             var response = new CategoryOutput
             {
@@ -86,15 +86,19 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, UpdateCategoryInput input)
+    public async Task<IActionResult> Update(
+        int id,
+        UpdateCategoryInput input
+    )
     {
         try
         {
-            var updatedCategory = _categoryManager.Update(
-                id,
-                input.Name,
-                input.Description
-            );
+            var updatedCategory =
+                await _categoryManager.UpdateAsync(
+                    id,
+                    input.Name,
+                    input.Description
+                );
 
             if (updatedCategory == null)
             {
@@ -117,9 +121,10 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var deleted = _categoryManager.Delete(id);
+        var deleted =
+            await _categoryManager.DeleteAsync(id);
 
         if (!deleted)
         {

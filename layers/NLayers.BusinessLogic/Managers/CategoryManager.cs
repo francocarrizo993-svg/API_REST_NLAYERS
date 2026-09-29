@@ -13,50 +13,53 @@ public class CategoryManager : ICategoryManager
         _categoryStore = categoryStore;
     }
 
-    public List<Category> GetAll()
+    public async Task<List<Category>> GetAllAsync()
     {
-        return _categoryStore.GetAll();
+        return await _categoryStore.GetAllAsync();
     }
 
-    public Category? GetById(int id)
+    public async Task<Category?> GetByIdAsync(int id)
     {
-        return _categoryStore.GetById(id);
+        return await _categoryStore.GetByIdAsync(id);
     }
 
-    public Category Add(Category category)
+    public async Task<Category> AddAsync(Category category)
     {
         ValidateCategory(category);
 
         category.Name = category.Name.Trim();
         category.Description = category.Description?.Trim();
 
-        return _categoryStore.Add(category);
+        return await _categoryStore.AddAsync(category);
     }
 
-    public Category? Update(
+    public async Task<Category?> UpdateAsync(
         int id,
         string name,
         string? description
     )
     {
-        var category = _categoryStore.GetById(id);
+        var category = await _categoryStore.GetByIdAsync(id);
 
         if (category == null)
         {
             return null;
         }
 
-        category.Name = name.Trim();
-        category.Description = description?.Trim();
+        category.Name = name;
+        category.Description = description;
 
         ValidateCategory(category);
 
-        return _categoryStore.Update(category);
+        category.Name = category.Name.Trim();
+        category.Description = category.Description?.Trim();
+
+        return await _categoryStore.UpdateAsync(category);
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        return _categoryStore.Delete(id);
+        return await _categoryStore.DeleteAsync(id);
     }
 
     private static void ValidateCategory(Category category)

@@ -4,17 +4,17 @@ namespace NLayers.BusinessLogic.Interfaces;
 
 public interface ICategoryManager
 {
-    List<Category> GetAll();
+    Task<List<Category>> GetAllAsync();
 
-    Category? GetById(int id);
+    Task<Category?> GetByIdAsync(int id);
 
-    Category Add(Category category);
+    Task<Category> AddAsync(Category category);
 
-    Category? Update(
+    Task<Category?> UpdateAsync(
         int id,
         string name,
         string? description
     );
 
-    bool Delete(int id);
+    Task<bool> DeleteAsync(int id);
 }

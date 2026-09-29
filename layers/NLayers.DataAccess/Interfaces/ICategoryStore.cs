@@ -4,13 +4,13 @@ namespace NLayers.DataAccess.Interfaces;
 
 public interface ICategoryStore
 {
-    List<Category> GetAll();
+    Task<List<Category>> GetAllAsync();
 
-    Category? GetById(int id);
+    Task<Category?> GetByIdAsync(int id);
 
-    Category Add(Category category);
+    Task<Category> AddAsync(Category category);
 
-    Category Update(Category category);
+    Task<Category> UpdateAsync(Category category);
 
-    bool Delete(int id);
+    Task<bool> DeleteAsync(int id);
 }

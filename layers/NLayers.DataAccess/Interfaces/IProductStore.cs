@@ -4,13 +4,13 @@ namespace NLayers.DataAccess.Interfaces;
 
 public interface IProductStore
 {
-    List<Product> GetAll();
+    Task<List<Product>> GetAllAsync();
 
-    Product? GetById(int id);
+    Task<Product?> GetByIdAsync(int id);
 
-    Product Add(Product product);
+    Task<Product> AddAsync(Product product);
 
-    Product Update(Product product);
+    Task<Product> UpdateAsync(Product product);
 
-    bool Delete(int id);
+    Task<bool> DeleteAsync(int id);
 }

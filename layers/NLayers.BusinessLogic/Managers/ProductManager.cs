@@ -13,34 +13,34 @@ public class ProductManager : IProductManager
         _productStore = productStore;
     }
 
-    public List<Product> GetAll()
+    public async Task<List<Product>> GetAllAsync()
     {
-        return _productStore.GetAll();
+        return await _productStore.GetAllAsync();
     }
 
-    public Product? GetById(int id)
+    public async Task<Product?> GetByIdAsync(int id)
     {
-        return _productStore.GetById(id);
+        return await _productStore.GetByIdAsync(id);
     }
 
-    public Product Add(Product product)
+    public async Task<Product> AddAsync(Product product)
     {
         ValidateProduct(product);
 
         product.Name = product.Name.Trim();
         product.Description = product.Description?.Trim();
 
-        return _productStore.Add(product);
+        return await _productStore.AddAsync(product);
     }
 
-    public Product? Update(
+    public async Task<Product?> UpdateAsync(
         int id,
         string name,
         string? description,
         decimal price
     )
     {
-        var product = _productStore.GetById(id);
+        var product = await _productStore.GetByIdAsync(id);
 
         if (product == null)
         {
@@ -53,12 +53,12 @@ public class ProductManager : IProductManager
 
         ValidateProduct(product);
 
-        return _productStore.Update(product);
+        return await _productStore.UpdateAsync(product);
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        return _productStore.Delete(id);
+        return await _productStore.DeleteAsync(id);
     }
 
     private static void ValidateProduct(Product product)

@@ -4,18 +4,18 @@ namespace NLayers.BusinessLogic.Interfaces;
 
 public interface IProductManager
 {
-    List<Product> GetAll();
+    Task<List<Product>> GetAllAsync();
 
-    Product? GetById(int id);
+    Task<Product?> GetByIdAsync(int id);
 
-    Product Add(Product product);
+    Task<Product> AddAsync(Product product);
 
-    Product? Update(
+    Task<Product?> UpdateAsync(
         int id,
         string name,
         string? description,
         decimal price
     );
 
-    bool Delete(int id);
+    Task<bool> DeleteAsync(int id);
 }

@@ -18,9 +18,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var products = _productManager.GetAll();
+        var products = await _productManager.GetAllAsync();
 
         var response = products.Select(product => new ProductOutput
         {
@@ -34,9 +34,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var product = _productManager.GetById(id);
+        var product = await _productManager.GetByIdAsync(id);
 
         if (product == null)
         {
@@ -55,7 +55,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateProductInput input)
+    public async Task<IActionResult> Create(CreateProductInput input)
     {
         try
         {
@@ -66,7 +66,7 @@ public class ProductController : ControllerBase
                 Price = input.Price
             };
 
-            var createdProduct = _productManager.Add(product);
+            var createdProduct = await _productManager.AddAsync(product);
 
             var response = new ProductOutput
             {
@@ -89,11 +89,11 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, UpdateProductInput input)
+    public async Task<IActionResult> Update(int id, UpdateProductInput input)
     {
         try
         {
-            var updatedProduct = _productManager.Update(
+            var updatedProduct = await _productManager.UpdateAsync(
                 id,
                 input.Name,
                 input.Description,
@@ -122,9 +122,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var deleted = _productManager.Delete(id);
+        var deleted = await _productManager.DeleteAsync(id);
 
         if (!deleted)
         {
